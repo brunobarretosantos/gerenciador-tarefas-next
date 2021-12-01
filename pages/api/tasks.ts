@@ -13,12 +13,16 @@ const taskEndpoint = async (req: NextApiRequest, res: NextApiResponse<DefaultRes
     switch (req.method) {
         case 'POST':            
             await saveTask(req, res, userId);
+            break;
         case 'PUT':
             await updateTask(req, res, userId);
+            break;
         case 'DELETE':
             await deleteTask(req, res, userId);
+            break;
         case 'GET':
             await getTask(req, res, userId);
+            break;
         default:
             return res.status(405).json({ error: 'Invalid method' });
     }
