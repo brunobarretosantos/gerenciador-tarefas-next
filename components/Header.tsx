@@ -24,7 +24,7 @@ export const Header : NextPage<HeaderProps> = ({ sair}) => {
     return (
         <div className="container-header">
             <img src="/logo.svg" alt="Logo Fiap" className="logo" />
-            
+            <button>+Adicionar Tarefa</button>
             <div className="mobile">
                 <span>Olá, {name}</span>
                 <img  src="mobile/exit.svg" alt="Sair" onClick={sair}/>
