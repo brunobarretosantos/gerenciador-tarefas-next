@@ -17,11 +17,11 @@ export const Item : NextPage<ItemProps> = ({ task }) => {
     }
 
     return (
-        <div className="container-item">
+        <div className={"container-item" + (task?.finishDate ? "" : " active")}>
             <img src={task?.finishDate ? '/checked.svg' : 'not-checked.svg'}
                 alt={task?.finishDate ? 'Tarefa Concluída' : 'Tarefa não concluída'}/>
             <div>
-                <p>{task.name}</p>
+                <p className={task?.finishDate ? "finished" : ""}>{task.name}</p>
                 <span>{getDateText(task)}</span>
             </div>
         </div>

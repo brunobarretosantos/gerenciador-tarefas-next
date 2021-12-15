@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: flex-start;
     width: 95%;
-    background-color: $lightGreyColor;
+    background-color: $mediumGreyColorOpacity;
     border-radius: 12px;
     padding: 10px;
     margin-top: 10px;
@@ -24,7 +24,7 @@
             font-weight: bold;
             font-size: 15px;
 
-            &.concluido {
+            &.finished {
                 text-decoration: line-through;
             }
         }
@@ -44,7 +44,7 @@
             width: 20px;
         }
 
-        &.ativo {
+        &.active {
             cursor: pointer;
 
             &:hover {
