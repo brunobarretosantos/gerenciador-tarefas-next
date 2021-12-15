@@ -5,7 +5,8 @@ import { Header } from "../components/Header"
 import { useEffect, useState } from "react";
 import { List } from "../components/List";
 import { executeRequest } from "../services/api";
-import { Modal } from "react-bootstrap";
+import { Task } from "../types/Task";
+import {CrudModal} from '../components/Modal';
 
 type HomeProps = {
     setToken(s: string) : void
@@ -86,47 +87,29 @@ export const Home : NextPage<HomeProps> = ({setToken}) => {
         getFilteredList();
     }, [status, previsionDateStart, previsionDateEnd]);
 
-    return(
+    return (
         <>
             <Header sair={sair} showModal={() => setShowModal(true)}/>
             <Filter 
-                previsionDateStart = {previsionDateStart}
-                previsionDateEnd = {previsionDateEnd}
-                status = {status}
-                setPrevisionDateStart = {setPrevisionDateStart}
-                setPrevisionDateEnd = {setPrevisionDateEnd}
-                setStatus = {setStatus}                       
+                previsionDateStart={previsionDateStart}
+                previsionDateEnd={previsionDateEnd}
+                status={status}
+                setPrevisionDateStart={setPrevisionDateStart}
+                setPrevisionDateEnd={setPrevisionDateEnd}
+                setStatus={setStatus}
             />
-            <List tasks={tasks} />
+            <List tasks={tasks} getFilteredList={getFilteredList}/>
             <Footer showModal={() => setShowModal(true)}/>
-            <Modal
-                show={showModal}
-                onHide={() => closeModal()}
-                className="container-modal" >
-
-                <Modal.Body>
-                    <p>Adicionar Tarefa</p>
-                    {errorMsg && <p className="error">{errorMsg}</p>}
-                    <input  type="text" 
-                            placeholder="Nome da tarefa"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                            />
-                    <input  type="text"
-                            placeholder="Informe a previsão de conclusão"
-                            value={previsionDate}
-                            onChange={e => setPrevisionDate(e.target.value)}
-                            onFocus={e => e.target.type = "date"}
-                            onBlur={e => previsionDate ? e.target.type = "date" : e.target.type = "text"}
-                            />
-                </Modal.Body>
-                <Modal.Footer>
-                    <div className="button col-12">
-                        <button onClick={doSave} >Salvar</button>
-                        <span onClick={closeModal}>Cancelar</span>
-                    </div>
-                </Modal.Footer>
-            </Modal>
+            <CrudModal 
+                showModal={showModal}
+                errorMsg={errorMsg}
+                name={name}
+                setName={setName}
+                previsionDate={previsionDate}
+                setPrevisionDate={setPrevisionDate}
+                closeModal={closeModal}
+                doSave={doSave}
+            />
         </>
-    )
+    );
 }
