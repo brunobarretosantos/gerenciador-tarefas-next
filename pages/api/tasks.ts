@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import connectDb from "../../middlewares/connectDb";
 import jwtValidator from "../../middlewares/jwtValidator"
 import { DefaultResponseMsg } from "../../types/DefaultResponseMsg";
-import { TaskRequest } from "../../types/TaskRequest";
+import { Task } from "../../types/Task";
 import moment from 'moment';
 import { TaskModel } from "../../models/TaskModel"
 import { GetTasksParams } from "../../types/GetTasksParams";
@@ -28,7 +28,7 @@ const taskEndpoint = async (req: NextApiRequest, res: NextApiResponse<DefaultRes
     }
 }
 
-const validateBody = (body : TaskRequest, userId: string) => {
+const validateBody = (body : Task, userId: string) => {
     if(!userId){
         return 'User not found';
     }
@@ -80,7 +80,7 @@ const getTask = async (req: NextApiRequest, res: NextApiResponse<DefaultResponse
 }
 
 const saveTask = async (req: NextApiRequest, res: NextApiResponse<DefaultResponseMsg>, userId: string) => {
-    const body = req.body as TaskRequest;    
+    const body = req.body as Task;    
 
     const errorMessage =  validateBody(body, userId);
     if (errorMessage){
@@ -106,7 +106,7 @@ const saveTask = async (req: NextApiRequest, res: NextApiResponse<DefaultRespons
 }
 
 const updateTask = async (req: NextApiRequest, res: NextApiResponse<DefaultResponseMsg>, userId: string) => {        
-    const body = req.body as TaskRequest;
+    const body = req.body as Task;
 
     const errorMessage =  validateBody(body, userId);
     if (errorMessage){
@@ -141,7 +141,7 @@ const updateTask = async (req: NextApiRequest, res: NextApiResponse<DefaultRespo
 }
 
 const deleteTask = async (req: NextApiRequest, res: NextApiResponse<DefaultResponseMsg>, userId: string) => {        
-    const body = req.body as TaskRequest;
+    const body = req.body as Task;
     const taskId = req?.query?.taskId
 
     if(!taskId){

@@ -19,28 +19,40 @@ const jwtValidator = (handler: NextApiHandler) =>
             try {
                 const authorization = req.headers['authorization'];
 
-            if (!authorization){
-                return res.status(400).json({ error: 'Token is required' })
-            }
+                console.log("authorization");
+                console.log(authorization);
 
-            const token = authorization.substring(7); //remove "Bearer " notation
+                if (!authorization){
+                    return res.status(400).json({ error: 'Token is required' })
+                }
 
-            if (!token){
-                return res.status(400).json({ error: 'Token is required' })
-            }
+                const token = authorization.substring(7); //remove "Bearer " notation
 
-            const decode = await jwt.verify(token, MY_SECRET_KEY) as JwtPayload;
+                if (!token){
+                    return res.status(400).json({ error: 'Token is required' })
+                }
 
-            if (!decode){
-                return res.status(400).json({ error: 'Invalid Token' })
-            }
+                console.log("MY_SECRET_KEY");
+                console.log(MY_SECRET_KEY);
 
-            if (req.body){
-                req.body.userId = decode._id;
-            }else{
-                req.query.userId = decode._id;
-            }
+                const decode = await jwt.verify(token, MY_SECRET_KEY) as JwtPayload;
+
+                console.log("decode");
+                console.log(decode);
+
+                if (!decode){
+                    return res.status(400).json({ error: 'Invalid Token' })
+                }
+
+                if (req.body){
+                    console.log("body");
+                    req.body.userId = decode._id;
+                }else{
+                    console.log("query");
+                    req.query.userId = decode._id;
+                }
             } catch (error) {
+                console.log(error);
                 return res.status(500).json({ error: 'Token validation failed' })
             }
         }        
