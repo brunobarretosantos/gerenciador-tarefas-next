@@ -113,7 +113,7 @@ const updateTask = async (req: NextApiRequest, res: NextApiResponse<DefaultRespo
         return res.status(400).json({ error: errorMessage });
     }
     
-    const taskId = req?.query?.taskId
+    const taskId = req?.query?.id
 
     if(!taskId){
         return res.status(400).json({ error: 'Task Id is required' });
@@ -142,7 +142,7 @@ const updateTask = async (req: NextApiRequest, res: NextApiResponse<DefaultRespo
 
 const deleteTask = async (req: NextApiRequest, res: NextApiResponse<DefaultResponseMsg>, userId: string) => {        
     const body = req.body as Task;
-    const taskId = req?.query?.taskId
+    const taskId = req?.query?.id
 
     if(!taskId){
         return res.status(400).json({ error: 'Task Id is required' });

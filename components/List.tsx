@@ -56,8 +56,8 @@ export const List: NextPage<ListProps> = ({ tasks, getFilteredList }) => {
             await getFilteredList();
             closeModal();
         } catch (e) {
-            console.log(e);
-            setErrorMsg('Ocorreu erro ao atualizar tarefa, tente novamenete');
+            console.log(e);            
+            setErrorMsg('Ocorreu erro ao atualizar tarefa, tente novamente');
         }
     }
 
@@ -73,7 +73,7 @@ export const List: NextPage<ListProps> = ({ tasks, getFilteredList }) => {
             closeModal();
         } catch (e) {
             console.log(e);
-            setErrorMsg('Ocorreu erro ao deletar tarefa, tente novamenete');
+            setErrorMsg('Ocorreu erro ao deletar tarefa, tente novamente');
         }
     }
 
